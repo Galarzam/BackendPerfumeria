@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Http\Resources\Cart;
+
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class CartShopResource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function toArray($request)
+    {
+        return [
+            "id" => $this->resource->id,
+            "user_id" => $this->resource->user_id,
+            "user" => [
+                "id" => $this->resource->client->id,
+                "name" =>$this->resource->client->name,
+            ],
+            "product_id" => $this->resource->product_id,
+            "product" => [
+                "id" =>  $this->resource->product->id,
+                "title" => $this->resource->product->title,
+                "slug" => $this->resource->product->slug,
+                "price_soles" => $this->resource->product->price_soles,
+                "price_usd" => $this->resource->product->price_usd,
+                "imagen" =>  env("APP_URL")."storage/".$this->resource->product->imagen,
+            ],
+            "type_discount" => $this->resource->type_discount,
+            "discount" => $this->resource->discount,
+            "cantidad" => $this->resource->cantidad,
+            "code_cupon" => $this->resource->code_cupon,
+            "code_discount" => $this->resource->code_discount,
+            "precio_unitario" => $this->resource->precio_unitario,
+            "subtotal" => $this->resource->subtotal,
+            "total" => $this->resource->total,
+        ];
+    }      
+}
